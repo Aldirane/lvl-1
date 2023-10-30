@@ -6,16 +6,17 @@ import (
 )
 
 /* Задание 15.
-К каким негативным последствиям может привести данный фрагмент кода, и как
-это исправить? Приведите корректный пример реализации.
-var justString string
-func someFunc() {
-v := createHugeString(1 << 10)
-justString = v[:100]
-}
-func main() {
-someFunc()
-}
+   К каким негативным последствиям может привести данный фрагмент кода, и как
+   это исправить? Приведите корректный пример реализации.
+
+    var justString string
+    func someFunc() {
+       v := createHugeString(1 << 10)
+       justString = v[:100]
+    }
+    func main() {
+       someFunc()
+    }
 */
 
 /* Решение
@@ -42,7 +43,7 @@ func someFunc() {
 
 func main() {
 	someFunc()
-	justString := fmt.Sprintf("%s", justBytes) // получение строки из байтов
+	justString := string(justBytes) // получение строки из байтов
 	fmt.Println(justString)
 }
 

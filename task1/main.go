@@ -2,10 +2,14 @@ package main
 
 import "fmt"
 
-/*
+/* Задание 1
 Дана структура Human (с произвольным набором полей и методов).
 Реализовать встраивание методов в структуре Action от родительской структуры
 Human (аналог наследования).
+*/
+
+/* Решение
+Встраиваем структуру Human в структуру Action и вызываем метод walk у Human
 */
 
 func main() {
@@ -21,6 +25,6 @@ type Action struct {
 	Human
 }
 
-func (a *Action) walk() {
-	fmt.Printf("%s is walking\n", a.Name)
+func (h *Human) walk() {
+	fmt.Printf("%s is walking\n", h.Name)
 }

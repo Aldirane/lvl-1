@@ -7,9 +7,20 @@ import (
 	"time"
 )
 
+// Задание 6.
 // Реализовать все возможные способы остановки выполнения горутины.
 
+/* Решение
+Первый способ - использовать команду Ctrl+C для завершения процессов,
+с помощью os.Signal через канал signalChan и завершить главный поток функции main по получению сигнала
+Второй способ - ожидать получение из канала stopChan и пока не было принятно ничего из этого канала,
+горутина будет делать какую либо работу.
+Третий способ - принимать из канала какие то данные. Если данные валидны то продолжать, если нет то завершить работу.
+Четвертый способ - завершение по таймеру - time.After(Duration). Завершить работу горутины по таймеру.
+*/
+
 func main() {
+	var N int = 2
 	signalChan := make(chan os.Signal, 1)
 	stopChan := make(chan bool)
 	go secondGo(stopChan)
@@ -19,6 +30,7 @@ func main() {
 	go thirdGo(someChan)
 	someChan <- "data"
 	someChan <- "wrong data"
+	go fourthGo(N)
 	signal.Notify(signalChan, os.Interrupt)
 	<-signalChan
 	fmt.Println("Main goroutine out")
@@ -46,4 +58,10 @@ func thirdGo(someChan chan interface{}) {
 		}
 	}
 	fmt.Println("Third goroutine out")
+}
+
+func fourthGo(N int) {
+	dur := time.Duration(N * int(time.Second))
+	<-time.After(dur)
+	fmt.Println("Fourth gorutine out")
 }
